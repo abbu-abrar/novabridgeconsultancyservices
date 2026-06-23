@@ -109,4 +109,3 @@ export const BLOG_CATEGORIES = [
   'Tourist Visa',
   'Documentation',
 ]
-

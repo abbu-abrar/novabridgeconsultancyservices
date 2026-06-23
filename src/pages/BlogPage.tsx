@@ -1,5 +1,6 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useMemo, useRef } from 'react'
 import { Link } from 'react-router-dom'
+import { Helmet } from 'react-helmet-async'
 import { BLOG_CATEGORIES, ARTICLES } from './blogData'
 
 const ArrowIcon = () => (
@@ -7,6 +8,10 @@ const ArrowIcon = () => (
     <path d="M3 8h10M10 5l3 3-3 3" />
   </svg>
 )
+
+function buildCollectionDescription() {
+  return 'Visa & immigration guidance, study abroad updates, and practical checklists designed to help Indian students and professionals plan with confidence.'
+}
 
 export default function BlogPage() {
   const ref = useRef<HTMLDivElement>(null)
@@ -29,8 +34,50 @@ export default function BlogPage() {
     return () => obs.disconnect()
   }, [])
 
+  const description = useMemo(() => buildCollectionDescription(), [])
+
+  const jsonLd = useMemo(
+    () => ({
+      '@context': 'https://schema.org',
+      '@type': 'ItemList',
+      name: 'NovaBridge Blog & Insights',
+      description,
+      url: 'https://novabridgeconsultancyservices.in/blog',
+      itemListElement: ARTICLES.slice(0, 10).map((a, idx) => ({
+        '@type': 'ListItem',
+        position: idx + 1,
+        name: a.title,
+        url: `https://novabridgeconsultancyservices.in/blog/${a.slug}`,
+      })),
+    }),
+    [description]
+  )
+
   return (
     <div ref={ref}>
+      <Helmet>
+        <title>Blog &amp; Insights • NovaBridge</title>
+        <meta name="description" content={description} />
+
+        <link rel="canonical" href="https://novabridgeconsultancyservices.in/blog" />
+
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://novabridgeconsultancyservices.in/blog" />
+        <meta property="og:title" content="Blog &amp; Insights • NovaBridge" />
+        <meta property="og:description" content={description} />
+        <meta property="og:image" content="https://novabridgeconsultancyservices.in/og-image.jpg" />
+
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:url" content="https://novabridgeconsultancyservices.in/blog" />
+        <meta name="twitter:title" content="Blog &amp; Insights • NovaBridge" />
+        <meta name="twitter:description" content={description} />
+        <meta name="twitter:image" content="https://novabridgeconsultancyservices.in/og-image.jpg" />
+
+        <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+
+        <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
+      </Helmet>
+
       <section className="nb-page-hero">
         <div className="nb-container">
           <div className="nb-page-hero-inner nb-reveal">

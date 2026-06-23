@@ -14,6 +14,60 @@ function estimateDescription(article: BlogArticle) {
   return `${article.title}. ${article.excerpt}`
 }
 
+function estimateCanonicalUrl(article: BlogArticle) {
+  return `https://novabridgeconsultancyservices.in/blog/${article.slug}`
+}
+
+function buildBreadcrumbJsonLd(article: BlogArticle) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://novabridgeconsultancyservices.in/' },
+      { '@type': 'ListItem', position: 2, name: 'Blog', item: 'https://novabridgeconsultancyservices.in/blog' },
+      { '@type': 'ListItem', position: 3, name: article.category, item: 'https://novabridgeconsultancyservices.in/blog' },
+      { '@type': 'ListItem', position: 4, name: article.title, item: estimateCanonicalUrl(article) },
+    ],
+  }
+}
+
+function buildBlogPostingJsonLd(article: BlogArticle) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: article.title,
+    description: estimateDescription(article),
+    datePublished: article.date,
+    dateModified: article.date,
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': estimateCanonicalUrl(article),
+    },
+    author: {
+      '@type': 'Organization',
+      name: 'NovaBridge Consultancy Services',
+      url: 'https://novabridgeconsultancyservices.in/',
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'NovaBridge Consultancy Services',
+      url: 'https://novabridgeconsultancyservices.in/',
+      logo: {
+        '@type': 'ImageObject',
+        url: 'https://novabridgeconsultancyservices.in/logo.png',
+      },
+    },
+    image: 'https://novabridgeconsultancyservices.in/og-image.jpg',
+    inLanguage: 'en-IN',
+    isPartOf: {
+      '@type': 'Blog',
+      name: 'NovaBridge Blog & Insights',
+      url: 'https://novabridgeconsultancyservices.in/blog',
+    },
+    about: article.category,
+  }
+}
+
 export default function BlogPostPage() {
   const { slug } = useParams()
 
@@ -54,11 +108,33 @@ export default function BlogPostPage() {
     )
   }
 
+  const canonicalUrl = estimateCanonicalUrl(article)
+  const breadcrumbJsonLd = useMemo(() => buildBreadcrumbJsonLd(article), [article])
+  const blogPostingJsonLd = useMemo(() => buildBlogPostingJsonLd(article), [article])
+
   return (
     <div>
       <Helmet>
         <title>{article.title} • NovaBridge</title>
         <meta name="description" content={estimateDescription(article)} />
+
+        <link rel="canonical" href={canonicalUrl} />
+        <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+
+        <meta property="og:type" content="article" />
+        <meta property="og:url" content={canonicalUrl} />
+        <meta property="og:title" content={`${article.title} • NovaBridge`} />
+        <meta property="og:description" content={estimateDescription(article)} />
+        <meta property="og:image" content="https://novabridgeconsultancyservices.in/og-image.jpg" />
+
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:url" content={canonicalUrl} />
+        <meta name="twitter:title" content={`${article.title} • NovaBridge`} />
+        <meta name="twitter:description" content={estimateDescription(article)} />
+        <meta name="twitter:image" content="https://novabridgeconsultancyservices.in/og-image.jpg" />
+
+        <script type="application/ld+json">{JSON.stringify(breadcrumbJsonLd)}</script>
+        <script type="application/ld+json">{JSON.stringify(blogPostingJsonLd)}</script>
       </Helmet>
 
       <section className="nb-page-hero">
