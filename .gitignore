@@ -1,4 +1,4 @@
-# Logs
+Logs
 logs
 *.log
 npm-debug.log*
@@ -6,6 +6,11 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
+
+# Shogo runtime workspace data (sessions/logs/reports/screenshots)
+.shogo/
+# (optional) keep only index.db out; but safest is ignore whole folder
+# .shogo/index.db
 
 node_modules
 dist
