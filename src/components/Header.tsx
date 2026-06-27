@@ -90,12 +90,32 @@ export default function Header() {
           <div className="nb-header-inner">
             <Link className="nb-logo" to="/" aria-label="NovaBridge Consultancy Services Home">
               <div className="nb-logo-mark">
-                <img src="/logo.png" alt="NovaBridge Logo" />
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', height: '100%', background: 'linear-gradient(135deg, #5a0a1a, #7a1a2e)' }}>
+                <img
+                  src="/logo.png"
+                  alt="NovaBridge Logo"
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement
+                    target.style.display = 'none'
+                    const fallback = target.nextElementSibling as HTMLElement
+                    if (fallback) fallback.style.display = 'flex'
+                  }}
+                />
+                <div
+                  data-logo-fallback="true"
+                  style={{
+                    display: 'none',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    width: '100%',
+                    height: '100%',
+                    background: 'linear-gradient(135deg, #5a0a1a, #7a1a2e)',
+                  }}
+                >
                   <GlobeLogo />
                 </div>
               </div>
               <div className="nb-logo-text">
+
                 <span className="nb-logo-name">NovaBridge</span>
                 <span className="nb-logo-sub">Consultancy Services</span>
               </div>

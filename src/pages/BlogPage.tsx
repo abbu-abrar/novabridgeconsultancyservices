@@ -1,7 +1,8 @@
-import { useEffect, useMemo, useRef } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Helmet } from 'react-helmet-async'
 import { BLOG_CATEGORIES, ARTICLES } from './blogData'
+
 
 const ArrowIcon = () => (
   <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -15,6 +16,11 @@ function buildCollectionDescription() {
 
 export default function BlogPage() {
   const ref = useRef<HTMLDivElement>(null)
+  const [activeCategory, setActiveCategory] = useState('All')
+
+
+  const filteredArticles = activeCategory === 'All' ? ARTICLES : ARTICLES.filter(a => a.category === activeCategory)
+
 
   useEffect(() => {
     const el = ref.current
@@ -96,14 +102,23 @@ export default function BlogPage() {
         <div className="nb-container">
           <div className="nb-blog-filters nb-reveal">
             {BLOG_CATEGORIES.map((c, i) => (
-              <button className={`nb-blog-filter${i === 0 ? ' active' : ''}`} key={c}>{c}</button>
+              <button
+                key={c}
+                className={`nb-blog-filter${activeCategory === c ? ' active' : ''}`}
+                onClick={() => setActiveCategory(c)}
+
+              >
+                {c}
+              </button>
             ))}
           </div>
 
           <div className="nb-blog-grid nb-reveal nb-reveal-delay-1">
-            {ARTICLES.map((a, i) => (
+{filteredArticles.map((a, i) => (
               <article className="nb-blog-card" key={i}>
+
                 <div className="nb-blog-card-meta">
+
                   <span className="nb-blog-category">{a.category}</span>
                   <span className="nb-blog-date">{a.date}</span>
                 </div>

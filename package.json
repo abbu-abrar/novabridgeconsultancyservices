@@ -4,17 +4,17 @@
   "private": true,
   "license": "Apache-2.0",
   "type": "module",
+  "homepage": "https://novabridgeconsultancyservices.in",
   "scripts": {
     "dev": "vite",
     "dev:client": "vite",
     "dev:server": "bun --watch run server.tsx",
     "vercel:dev": "vite preview --host --port 3000",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "deploy": "gh-pages -d dist",
 
-    "build": "vite build",
-    "preview": "vite preview --host",
     "start": "bun run server.tsx",
-
-
     "generate": "bun ./node_modules/@shogo-ai/sdk/bin/cli.mjs generate",
     "db:generate": "bun x --bun prisma generate",
     "db:migrate:dev": "bun x --bun prisma migrate dev",
@@ -51,6 +51,7 @@
     "@types/react-dom": "^19.0.0",
     "@vitejs/plugin-react": "^5.1.2",
     "concurrently": "^8.2.0",
+    "gh-pages": "^6.3.0",
     "postcss": "^8.5.6",
     "prisma": "^7.3.0",
     "shadcn": "^3.8.4",

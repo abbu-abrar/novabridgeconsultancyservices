@@ -64,26 +64,33 @@ export default function Footer() {
                   <img
                     src="/logo.png"
                     alt="NovaBridge Logo"
+                    style={{ position: 'relative', zIndex: 1 }}
                     onError={(e) => {
-                    const target = e.target as HTMLImageElement
-                    target.style.display = 'none'
-                  }}
-          style={{ position: 'relative', zIndex: 1 }}
-  />
-  <div style={{ 
-    position: 'absolute', 
-    top: 0, 
-    left: 0, 
-    width: '100%', 
-    height: '100%', 
-    display: 'flex', 
-    alignItems: 'center', 
-    justifyContent: 'center', 
-    background: 'linear-gradient(135deg, #5a0a1a, #7a1a2e)' 
-  }}>
-    <GlobeLogo />
-  </div>
-</div>
+                      const target = e.target as HTMLImageElement
+                      target.style.display = 'none'
+                      const wrapper = target?.parentElement
+                      const fallback = wrapper?.querySelector('[data-footer-logo-fallback="true"]') as HTMLDivElement | null
+                      if (fallback) fallback.style.display = 'flex'
+                    }}
+                  />
+                  <div
+                    data-footer-logo-fallback="true"
+                    style={{
+                      position: 'absolute',
+                      top: 0,
+                      left: 0,
+                      width: '100%',
+                      height: '100%',
+                      display: 'none',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      background: 'linear-gradient(135deg, #5a0a1a, #7a1a2e)',
+                      zIndex: 0,
+                    }}
+                  >
+                    <GlobeLogo />
+                  </div>
+                </div>
               </div>
               <div>
                 <div className="nb-footer-logo-name">NovaBridge</div>
@@ -137,7 +144,7 @@ export default function Footer() {
         </div>
 
         <div className="nb-footer-bottom">
-          <span className="nb-footer-copy">&copy; 2024 NovaBridge Consultancy Services. All rights reserved.</span>
+<span className="nb-footer-copy">&copy; {new Date().getFullYear()} NovaBridge Consultancy Services. All rights reserved.</span>
           <div className="nb-footer-legal">
             <Link to="/privacy">Privacy Policy</Link>
             <Link to="/terms">Terms of Service</Link>

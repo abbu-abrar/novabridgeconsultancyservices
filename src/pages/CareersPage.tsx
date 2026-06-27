@@ -167,7 +167,11 @@ export default function CareersPage() {
                       <li key={j}>{r}</li>
                     ))}
                   </ul>
-                  <a href="mailto:hello@novabridgeconsultancyservices.in?subject=Application: {job.title}" className="nb-btn-primary" style={{ marginTop: 16 }}>
+<a
+href={`mailto:hello@novabridgeconsultancyservices.in?subject=${encodeURIComponent(`Application: ${job.title}`)}`}
+                    className="nb-btn-primary"
+                    style={{ marginTop: 16 }}
+                  >
                     Apply Now <ArrowIcon />
                   </a>
                 </div>

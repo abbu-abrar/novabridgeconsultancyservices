@@ -75,6 +75,7 @@ function sanitizeInput(value: string): string {
 export default function Contact({ onOpenModal }: { onOpenModal: (type: string) => void }) {
   const [submitting, setSubmitting] = useState(false)
   const [submitted, setSubmitted] = useState(false)
+  const [submitError, setSubmitError] = useState<string | null>(null)
   const sectionRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
@@ -98,6 +99,7 @@ export default function Contact({ onOpenModal }: { onOpenModal: (type: string) =
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (submitting) return
+    setSubmitError(null)
 
     const form = e.currentTarget
     const formData = new FormData(form)
@@ -130,6 +132,9 @@ export default function Contact({ onOpenModal }: { onOpenModal: (type: string) =
       setSubmitted(true)
     } catch {
       setSubmitting(false)
+      alert('Failed to send message. Please try again or contact us at hello@novabridgeconsultancyservices.in')
+      setSubmitted(false)
+      setSubmitError('Something went wrong. Please try again in a moment.')
     }
   }
 
@@ -231,6 +236,24 @@ export default function Contact({ onOpenModal }: { onOpenModal: (type: string) =
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} noValidate>
+                  {submitError ? (
+                    <div
+                      role="alert"
+                      className="nb-form-error"
+                      style={{
+                        margin: '0 0 18px',
+                        padding: '14px 16px',
+                        borderRadius: 12,
+                        background: 'rgba(200, 0, 0, 0.08)',
+                        color: 'var(--nb-ink)',
+                        border: '1px solid rgba(200, 0, 0, 0.25)',
+                        fontWeight: 600,
+                      }}
+                    >
+                      {submitError}
+                    </div>
+                  ) : null}
+
                   <input type="hidden" name="_captcha" value="false" />
                   <input type="hidden" name="_next" value="https://novabridgeconsultancyservices.in/thank-you" />
 
