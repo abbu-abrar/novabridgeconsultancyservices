@@ -13,7 +13,6 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "deploy": "gh-pages -d dist",
-
     "start": "bun run server.tsx",
     "generate": "bun ./node_modules/@shogo-ai/sdk/bin/cli.mjs generate",
     "db:generate": "bun x --bun prisma generate",
@@ -34,6 +33,7 @@
     "mobx": "^6.13.0",
     "mobx-react-lite": "^4.0.0",
     "ms": "^2.1.3",
+    "picocolors": "^1.1.1",
     "radix-ui": "^1.4.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
