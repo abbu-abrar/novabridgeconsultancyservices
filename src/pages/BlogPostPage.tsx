@@ -57,7 +57,6 @@ function buildBlogPostingJsonLd(article: BlogArticle) {
         url: 'https://novabridgeconsultancyservices.in/logo.png',
       },
     },
-    image: 'https://novabridgeconsultancyservices.in/og-image.jpg',
     inLanguage: 'en-IN',
     isPartOf: {
       '@type': 'Blog',
@@ -125,16 +124,15 @@ export default function BlogPostPage() {
         <meta property="og:url" content={canonicalUrl} />
         <meta property="og:title" content={`${article.title} • NovaBridge`} />
         <meta property="og:description" content={estimateDescription(article)} />
-        <meta property="og:image" content="https://novabridgeconsultancyservices.in/og-image.jpg" />
 
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:url" content={canonicalUrl} />
         <meta name="twitter:title" content={`${article.title} • NovaBridge`} />
         <meta name="twitter:description" content={estimateDescription(article)} />
-        <meta name="twitter:image" content="https://novabridgeconsultancyservices.in/og-image.jpg" />
 
         <script type="application/ld+json">{JSON.stringify(breadcrumbJsonLd)}</script>
         <script type="application/ld+json">{JSON.stringify(blogPostingJsonLd)}</script>
+
       </Helmet>
 
       <section className="nb-page-hero">

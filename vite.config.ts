@@ -7,6 +7,7 @@ import tsConfigPaths from 'vite-tsconfig-paths'
 
 export default defineConfig({
   base: '/',
+  publicDir: 'public',  // ← ADD THIS LINE
   server: {
     port: 3000,
     host: '0.0.0.0',
