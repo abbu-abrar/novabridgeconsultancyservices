@@ -91,7 +91,7 @@ export default function Header() {
             <Link className="nb-logo" to="/" aria-label="NovaBridge Consultancy Services Home">
               <div className="nb-logo-mark">
                 <img
-                  src="/logo.png"
+                  src="/logo.jpg"
                   alt="NovaBridge Logo"
                   onError={(e) => {
                     const target = e.target as HTMLImageElement
