@@ -1,3 +1,10 @@
+# Override: Store public/ assets as normal files for GitHub Pages
+public/**.png -filter -diff -merge text
+public/**.jpg -filter -diff -merge text
+public/**.jpeg -filter -diff -merge text
+public/**.gif -filter -diff -merge text
+public/**.webp -filter -diff -merge text
+public/**.ico -filter -diff -merge text
 # >>> shogo git-lfs (managed) >>>
 *.png filter=lfs diff=lfs merge=lfs -text
 *.jpg filter=lfs diff=lfs merge=lfs -text
