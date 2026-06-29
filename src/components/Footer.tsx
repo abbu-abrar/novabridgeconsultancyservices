@@ -1,13 +1,5 @@
 import { Link } from 'react-router-dom'
-
-const GlobeLogo = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-    <circle cx="12" cy="12" r="10" />
-    <path d="M2 12h20" />
-    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-    <path d="M12 2v20" strokeDasharray="2 3" />
-  </svg>
-)
+import LogoImage from './LogoImage'
 
 const ShieldSmallIcon = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -60,37 +52,7 @@ export default function Footer() {
           <div>
             <Link to="/" className="nb-footer-logo">
               <div className="nb-footer-logo-mark">
-                <div className="nb-footer-logo-mark" style={{ position: 'relative' }}>
-                  <img
-                    src="/logo.png"
-                    alt="NovaBridge Logo"
-                    style={{ position: 'relative', zIndex: 1 }}
-                    onError={(e) => {
-                      const target = e.target as HTMLImageElement
-                      target.style.display = 'none'
-                      const wrapper = target?.parentElement
-                      const fallback = wrapper?.querySelector('[data-footer-logo-fallback="true"]') as HTMLDivElement | null
-                      if (fallback) fallback.style.display = 'flex'
-                    }}
-                  />
-                  <div
-                    data-footer-logo-fallback="true"
-                    style={{
-                      position: 'absolute',
-                      top: 0,
-                      left: 0,
-                      width: '100%',
-                      height: '100%',
-                      display: 'none',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      background: 'linear-gradient(135deg, #5a0a1a, #7a1a2e)',
-                      zIndex: 0,
-                    }}
-                  >
-                    <GlobeLogo />
-                  </div>
-                </div>
+                <LogoImage style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
               </div>
               <div>
                 <div className="nb-footer-logo-name">NovaBridge</div>
@@ -144,7 +106,7 @@ export default function Footer() {
         </div>
 
         <div className="nb-footer-bottom">
-<span className="nb-footer-copy">&copy; {new Date().getFullYear()} NovaBridge Consultancy Services. All rights reserved.</span>
+          <span className="nb-footer-copy">&copy; {new Date().getFullYear()} NovaBridge Consultancy Services. All rights reserved.</span>
           <div className="nb-footer-legal">
             <Link to="/privacy">Privacy Policy</Link>
             <Link to="/terms">Terms of Service</Link>

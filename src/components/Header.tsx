@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react'
 import { Link, useLocation } from 'react-router-dom'
+import LogoImage from './LogoImage'
 
 const NAV_ITEMS = [
   { label: 'About', to: '/about' },
@@ -25,15 +26,6 @@ const EmailIcon = () => (
 const ArrowIcon = () => (
   <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <path d="M3 8h10M10 5l3 3-3 3" />
-  </svg>
-)
-
-const GlobeLogo = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-    <circle cx="12" cy="12" r="10" />
-    <path d="M2 12h20" />
-    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-    <path d="M12 2v20" strokeDasharray="2 3" />
   </svg>
 )
 
@@ -90,32 +82,9 @@ export default function Header() {
           <div className="nb-header-inner">
             <Link className="nb-logo" to="/" aria-label="NovaBridge Consultancy Services Home">
               <div className="nb-logo-mark">
-                <img
-                  src="/logo.jpg"
-                  alt="NovaBridge Logo"
-                  onError={(e) => {
-                    const target = e.target as HTMLImageElement
-                    target.style.display = 'none'
-                    const fallback = target.nextElementSibling as HTMLElement
-                    if (fallback) fallback.style.display = 'flex'
-                  }}
-                />
-                <div
-                  data-logo-fallback="true"
-                  style={{
-                    display: 'none',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    width: '100%',
-                    height: '100%',
-                    background: 'linear-gradient(135deg, #5a0a1a, #7a1a2e)',
-                  }}
-                >
-                  <GlobeLogo />
-                </div>
+                <LogoImage style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
               </div>
               <div className="nb-logo-text">
-
                 <span className="nb-logo-name">NovaBridge</span>
                 <span className="nb-logo-sub">Consultancy Services</span>
               </div>
